@@ -6,7 +6,7 @@ import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from "@/constants.jsx";
 import { Link, router } from "@inertiajs/react";
 
 
-export default function TasksTable({ tasks, queryParams = null }) {
+export default function TasksTable({ tasks, queryParams = null, hideProjectColumn = false }) {
     queryParams = queryParams || {};
 
     const searchFieldChanged = (name, value) => {
@@ -57,6 +57,11 @@ export default function TasksTable({ tasks, queryParams = null }) {
                             >
                                 Image
                             </th>
+                            {!hideProjectColumn && (<th
+                                className="px-3 py-3"
+                            >
+                                Project Name
+                            </th>)}
                             <TableHeading
                                 name="name"
                                 sort_field={queryParams.sort_field}
@@ -105,6 +110,7 @@ export default function TasksTable({ tasks, queryParams = null }) {
                         <tr className="text-nowrap">
                             <th className="px-3 py-3"></th>
                             <th className="px-3 py-3"></th>
+                            {!hideProjectColumn && <th className="px-3 py-3"></th>}
                             <th className="px-3 py-3">
                                 <TextInput
                                     className="w-full"
@@ -140,6 +146,7 @@ export default function TasksTable({ tasks, queryParams = null }) {
                                 <td className="px-3 py-2">
                                     <img src={task.image_path} style={{ width: 60 }} />
                                 </td>
+                                {!hideProjectColumn && (<td className="px-3 py-2">{task.project.name}</td>)}
                                 <td className="px-3 py-2">{task.name}</td>
                                 <td className="px-3 py-2">
                                     <span className={"px-2 py-1 rounded text-white " +
