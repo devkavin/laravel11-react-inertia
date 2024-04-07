@@ -51,8 +51,9 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
+        Project::create($data);
 
-        dd($data);
+        return to_route(route('projects.index'));
     }
 
     /**
