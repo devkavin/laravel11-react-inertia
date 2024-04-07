@@ -8,11 +8,10 @@ import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Create({ auth, user }) {
     const { data, setData, post, errors } = useForm({
-        image: "",
         name: user.name || "",
-        status: user.status || "",
-        description: user.description || "",
-        due_date: user.due_date || "",
+        email: user.email || "",
+        password: "",
+        password_confirmation: "",
         _method: "PUT",
 
     })
@@ -44,21 +43,6 @@ export default function Create({ auth, user }) {
                             onSubmit={onSubmit}
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                         >
-                            {user.image_path &&
-                                <div className="mb-4">
-                                    <img src={user.image_path} className="w-64" />
-                                </div>}
-                            <div>
-                                <InputLabel htmlFor="user_image_path" value="User Image" />
-                                <TextInput
-                                    id="user_image_path"
-                                    type="file"
-                                    name="image"
-                                    className="mt-1 block w-full"
-                                    onChange={e => setData('image', e.target.files[0])}
-                                />
-                                <InputError message={errors.image} className="mt-2" />
-                            </div>
                             <div className="mt-4">
                                 <InputLabel htmlFor="user_name" value="User Name" />
 
@@ -74,48 +58,43 @@ export default function Create({ auth, user }) {
                                 <InputError message={errors.name} className="mt-2" />
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="user_description" value="User Description" />
-
-                                <TextAreaInput
-                                    id="user_description"
-                                    name="description"
-                                    value={data.description}
-                                    className="mt-1 block w-full"
-                                    onChange={(e) => setData('description', e.target.value)}
-                                />
-
-                                <InputError message={errors.description} />
-
-                            </div>
-                            <div className="mt-4">
-                                <InputLabel htmlFor="porject_due_date"
-                                    value="User Deadline" />
+                                <InputLabel htmlFor="user_email" value="User Email" />
 
                                 <TextInput
-                                    id="user_due_date"
-                                    type="date"
-                                    name="due_date"
-                                    value={data.due_date}
+                                    id="user_email"
+                                    type="text"
+                                    name="email"
+                                    value={data.email}
                                     className="mt-1 block w-full"
-                                    onChange={(e) => setData('due_date', e.target.value)}
+                                    onChange={(e) => setData('email', e.target.value)}
                                 />
-                                <InputError message={errors.due_date} />
+                                <InputError message={errors.email} className="mt-2" />
                             </div>
                             <div className="mt-4">
-                                <InputLabel htmlFor="user_status" value="User Status" />
+                                <InputLabel htmlFor="user_password" value="Password" />
 
-                                <SelectInput
-                                    name="status"
-                                    id="user_status"
+                                <TextInput
+                                    id="user_password"
+                                    type="password"
+                                    name="password"
+                                    value={data.password}
                                     className="mt-1 block w-full"
-                                    onChange={(e) => setData('status', e.target.value)}
-                                >
-                                    <option value="">Select User Status</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="completed">Completed</option>
-                                </SelectInput>
-                                <InputError message={errors.status} />
+                                    onChange={(e) => setData('password', e.target.value)}
+                                />
+                                <InputError message={errors.password} className="mt-2" />
+                            </div>
+                            <div className="mt-4">
+                                <InputLabel htmlFor="user_password_confirmation" value="Password Confirmation" />
+
+                                <TextInput
+                                    id="user_password_confirmation"
+                                    type="password"
+                                    name="password_confirmation"
+                                    value={data.password_confirmation}
+                                    className="mt-1 block w-full"
+                                    onChange={(e) => setData('password_confirmation', e.target.value)}
+                                />
+                                <InputError message={errors.password_confirmation} className="mt-2" />
                             </div>
                             <div href={route("user.index")} className="mt-4 text-right">
                                 <Link className="bg-gray-100 py-1 px-3 text-gray-800 rounded shadow transition-all hover:bg-gray-200 mr-2">

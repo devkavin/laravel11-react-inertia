@@ -1,7 +1,5 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import SelectInput from "@/Components/SelectInput";
-import TextAreaInput from "@/Components/TextAreaInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
@@ -61,7 +59,6 @@ export default function Create({ auth }) {
                                     name="email"
                                     value={data.email}
                                     className="mt-1 block w-full"
-                                    isFocused={true}
                                     onChange={(e) => setData('email', e.target.value)}
                                 />
                                 <InputError message={errors.email} className="mt-2" />
@@ -75,7 +72,6 @@ export default function Create({ auth }) {
                                     name="password"
                                     value={data.password}
                                     className="mt-1 block w-full"
-                                    isFocused={true}
                                     onChange={(e) => setData('password', e.target.value)}
                                 />
                                 <InputError message={errors.password} className="mt-2" />
@@ -89,7 +85,6 @@ export default function Create({ auth }) {
                                     name="password_confirmation"
                                     value={data.password_confirmation}
                                     className="mt-1 block w-full"
-                                    isFocused={true}
                                     onChange={(e) => setData('password_confirmation', e.target.value)}
                                 />
                                 <InputError message={errors.password_confirmation} className="mt-2" />
