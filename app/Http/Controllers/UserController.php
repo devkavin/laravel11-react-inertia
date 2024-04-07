@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserCrudResource;
 
 class UserController extends Controller
 {
@@ -31,7 +31,7 @@ class UserController extends Controller
             ->onEachSide(1);
 
         return inertia('User/Index', [
-            "users" => UserResource::collection($users),
+            "users" => UserCrudResource::collection($users),
             'queryParams' => request()->query() ?: null,
             'success' => session('success'),
         ]);
@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('User/Create');
     }
 
     /**
@@ -50,7 +50,11 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
+
+        return to_route('user.index')->with('success', 'User was created');
     }
 
     /**
@@ -66,7 +70,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return inertia('User/Edit', [
+            'user' => new UserCrudResource($user),
+        ]);
     }
 
     /**
@@ -74,7 +80,15 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+        $password = $data['password'] ?? null;
+        if ($password) {
+            $data['password'] = bcrypt($password);
+        }
+        $user->update($data);
+
+        return to_route('user.index')
+            ->with('success', "User \"$user->name\" was updated");
     }
 
     /**
