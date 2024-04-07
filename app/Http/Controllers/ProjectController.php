@@ -113,9 +113,7 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        dd($request->validated());
         $data = $request->validated();
-        /** @var $image \illuminate\Http\UploadedFile */
         $image = $data['image'] ?? null;
         $data['updated_by'] = Auth::id();
 
@@ -127,7 +125,8 @@ class ProjectController extends Controller
         }
         $project->update($data);
 
-        return to_route('project.index')->with('success', "Project \"$project->name\" was updated");
+        return to_route('project.index')
+            ->with('success', "Project \"$project->name\" was updated");
     }
 
     /**
