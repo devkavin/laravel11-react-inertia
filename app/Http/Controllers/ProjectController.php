@@ -118,6 +118,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $name = $project->name;
+
+        // TODO: remove the image if it exists
+        $project->delete();
+        return to_route('project.index')->with('success', "Project \"$name\" deleted successfully");
     }
 }
