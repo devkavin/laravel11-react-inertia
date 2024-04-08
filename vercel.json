@@ -10,8 +10,8 @@
     }],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
-        "APP_URL": "https://laravel11-react-inertia-1h86z1j9p-devkavins-projects.vercel.app",
+        "APP_DEBUG": "false",
+        "APP_URL": "https://laravel11-react-inertia.vercel.app",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
